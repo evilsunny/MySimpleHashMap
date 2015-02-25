@@ -1,27 +1,52 @@
 package com.abramova.test;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-
+/**
+ * Simple Hash Map implementation.
+ * Store pairs of elements (int,long).
+ *
+ * @author Alina Abramova
+ * */
 public class MyHashMap {
+    /**
+     * The table entries;
+     * */
     private Entry[] buckets;
+    /**
+     * The number of entries in this MyHashMap
+     * */
     private int size;
     private  int DEFAULT_INIT_CAPACITY = 16;
     private  float DEFAULT_LOAD_FACTOR = 0.75f;
     static final int MAXIMUM_CAPACITY = 1 << 30;
+    /**
+     * The next size value to resize
+     * */
     private int threshold;
 
+    /**
+     * Constructs an empty MyHashMap with default values capacity and load factor.
+     * */
     public MyHashMap() {
         buckets = new Entry[DEFAULT_INIT_CAPACITY];
         size = 0;
-        threshold = (int)(DEFAULT_LOAD_FACTOR*DEFAULT_LOAD_FACTOR);
+        threshold = (int)(DEFAULT_LOAD_FACTOR*DEFAULT_INIT_CAPACITY);
     }
 
-    int indexOf(int key,int length) {
-        return Math.abs(key)%length;
+    /**
+     * Returns index for hash code hash
+     * */
+    int indexOf(int hash,int length) {
+        return Math.abs(hash)%length;
         }
 
+    /**
+     * Put pair (key,value) to this MyHashMap.If the map contained a mapping for the key, the old value is replaced
+     * @param key used with computed hashes to access values
+     * @param value - value for this key
+     * @return the previous value associated with key or this value if this key is first used
+     * */
     public long put(int key, long value) {
         int index = indexOf(key,buckets.length);
         for (Entry e = buckets[index]; e!=null;e = e.next){
@@ -36,6 +61,10 @@ public class MyHashMap {
         return value;
     }
 
+    /**
+     * Add entry  with key, value to the bucket with index = bucketIndex.
+     * Check whether it is necessary to resize.
+     * */
     void  addEntry(int key, long value, int bucketIndex) {
         Entry e = buckets[bucketIndex];
         buckets[bucketIndex] = new Entry(key, value, e);
@@ -44,6 +73,9 @@ public class MyHashMap {
 
     }
 
+    /**
+     * Rehashes the contents of this map into a new array with a larger capacity.
+     * */
     void  resize(int newCapacity) {
         Entry[] oldTable = buckets;
         int oldCapacity = oldTable.length;
@@ -57,6 +89,9 @@ public class MyHashMap {
         threshold = (int)(newCapacity * DEFAULT_LOAD_FACTOR);
     }
 
+    /**
+     * Transfers all entries from current buckets to new buckets during resizing.
+     * */
     void  transfer(Entry[] newTable) {
         Entry[] src = buckets;
         int newCapacity = newTable.length;
@@ -76,7 +111,10 @@ public class MyHashMap {
     }
 
 
-
+    /**
+     * Returns the value to which the specified key is mapped
+     * @throws java.util.NoSuchElementException if the specified key not found.
+     * */
     public long get(int key) {
         int index = indexOf(key,buckets.length);
         long value = 0;
@@ -92,10 +130,12 @@ public class MyHashMap {
         }
     }
 
+    /**
+     * Return the number of entries in this MyHashMap
+     * */
     public int size(){
         return size;
     }
-
 
 
     @Override
@@ -127,9 +167,21 @@ public class MyHashMap {
         return h;
     }
 
+    @Override
+    public String toString(){
+        String h = "";
+        Entry e;
+        EntryIterator entryIterator = new EntryIterator();
+        while (entryIterator.hasNext()){
+            e = entryIterator.next();
+            h+="( "+ e.key + ", "+e.value +" );" ;
+        }
+        return h;
+    }
+
     class Entry{
-        long value;
-        final int key;
+        private long value;
+        private final int key;
         Entry next;
 
         public Entry(int key, long value,Entry next) {
@@ -140,12 +192,14 @@ public class MyHashMap {
 
         @Override
         public int hashCode() {
-            return key;
+            return 37*key+8;
         }
+
+
     }
 
-    final class EntryIterator{
 
+    final class EntryIterator{
         Entry next;
         Entry current;
         int index;

@@ -94,6 +94,8 @@ public class HashMapTest {
         myHashMap1.put(1,1);
         myHashMap2.put(1, 1);
         myHashMap3.put(1, 1);
+
+
         assertEquals(myHashMap1.hashCode(),myHashMap2.hashCode(),0);
 
         assertTrue(myHashMap1.equals(myHashMap1));
@@ -109,6 +111,17 @@ public class HashMapTest {
         assertFalse(myHashMap1.equals(null));
     }
 
+    @Test
+    public void testCollision(){
+        final MyHashMap myHashMap1 = new MyHashMap();
+        final MyHashMap myHashMap2 = new MyHashMap();
+
+        myHashMap1.put(1,2);
+        myHashMap2.put(1,1);
+
+        assertEquals(myHashMap1.hashCode(),myHashMap2.hashCode());
+        assertFalse(myHashMap1.equals(myHashMap2));
+    }
 
 
 
