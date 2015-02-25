@@ -13,6 +13,9 @@ import static org.junit.Assert.assertTrue;
 
 public class HashMapTest {
 
+    /**
+    * Tests putting and getting simple entries and returning old value, when put entry with same key.
+    */
     @Test
     public  void testInput(){
         final MyHashMap myHashMap = new MyHashMap();
@@ -23,7 +26,9 @@ public class HashMapTest {
         assertEquals(891,myHashMap.get(1),0);
         assertEquals(31,myHashMap.put(49,12),0);
     }
-
+    /**
+    * Tests double putting entries with same keys
+    */
     @Test
     public void testDoublePut(){
         final MyHashMap myHashMap = new MyHashMap();
@@ -40,7 +45,9 @@ public class HashMapTest {
         assertEquals(143,myHashMap.get(2),0);
 
     }
-
+    /**
+    * Tests getting element if the specified key not found.
+    */
     @Test(expected = NoSuchElementException.class)
     public void testException(){
         final MyHashMap myHashMap = new MyHashMap();
@@ -48,6 +55,9 @@ public class HashMapTest {
         myHashMap.get(1);
     }
 
+     /**
+     * Tests resizing map when putting elements.
+     */
     @Test
     public void testSize(){
         final MyHashMap myHashMap = new MyHashMap();
@@ -60,6 +70,9 @@ public class HashMapTest {
         assertEquals(3,myHashMap.size(),0);
     }
 
+    /**
+     * Tests map with negative keys and values.
+     */
     @Test
     public void testNegative(){
         final MyHashMap myHashMap = new MyHashMap();
@@ -69,6 +82,10 @@ public class HashMapTest {
         assertEquals(-1,myHashMap.get(12),0);
     }
 
+    /**
+     * Tests execution of the program with big number elements.
+     * Output time of the execution.
+     */
     @Test
     public void testBigNumber(){
         final MyHashMap myHashMap = new MyHashMap();
@@ -85,6 +102,10 @@ public class HashMapTest {
 
     }
 
+    /**
+     * Tests correctness overriding methods hashCode() and equals().
+     * Checks equivalence relation for equals().
+     */
     @Test
     public void testEquals(){
         final MyHashMap myHashMap1 = new MyHashMap();
@@ -111,6 +132,10 @@ public class HashMapTest {
         assertFalse(myHashMap1.equals(null));
     }
 
+
+    /**
+     * Test hashCode() and equals() if arises collision.
+     */
     @Test
     public void testCollision(){
         final MyHashMap myHashMap1 = new MyHashMap();
