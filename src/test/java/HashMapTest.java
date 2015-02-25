@@ -1,15 +1,11 @@
 import com.abramova.test.MyHashMap;
+
 import org.junit.Test;
-
 import java.util.NoSuchElementException;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by alina on 24.02.15.
- */
 
 public class HashMapTest {
 
@@ -83,8 +79,8 @@ public class HashMapTest {
     }
 
     /**
-     * Tests execution of the program with big number elements.
-     * Output time of the execution.
+     * Tests execution of the program with large number of elements.
+     * Prints time of the execution.
      */
     @Test
     public void testBigNumber(){
@@ -103,7 +99,7 @@ public class HashMapTest {
     }
 
     /**
-     * Tests correctness overriding methods hashCode() and equals().
+     * Tests correctness of overriding methods hashCode() and equals().
      * Checks equivalence relation for equals().
      */
     @Test
@@ -134,7 +130,7 @@ public class HashMapTest {
 
 
     /**
-     * Test hashCode() and equals() if arises collision.
+     * Test hashCode() and equals() if collision arises.
      */
     @Test
     public void testCollision(){
@@ -147,10 +143,5 @@ public class HashMapTest {
         assertEquals(myHashMap1.hashCode(),myHashMap2.hashCode());
         assertFalse(myHashMap1.equals(myHashMap2));
     }
-
-
-
-
-
 
 }
