@@ -26,7 +26,7 @@ public class MyHashMap {
     private int threshold;
 
     /**
-     * Constructs an empty MyHashMap with default values capacity and load factor.
+     * Constructs an empty MyHashMap with default values of capacity and load factor.
      * */
     public MyHashMap() {
         buckets = new Entry[DEFAULT_INIT_CAPACITY];
@@ -35,14 +35,14 @@ public class MyHashMap {
     }
 
     /**
-     * Returns index for hash code hash
+     * Returns index for hash code
      * */
     int indexOf(int hash,int length) {
         return Math.abs(hash)%length;
         }
 
     /**
-     * Put pair (key,value) to this MyHashMap.If the map contained a mapping for the key, the old value is replaced
+     * Put pair (key,value) to this MyHashMap.If the map  contains a value for the key, the old value is replaced
      * @param key used with computed hashes to access values
      * @param value - value for this key
      * @return the previous value associated with key or this value if this key is first used
@@ -62,7 +62,10 @@ public class MyHashMap {
     }
 
     /**
-     * Add entry  with key, value to the bucket with index = bucketIndex.
+     * Add entry  with
+     * @param key field key in new entry
+     * @param value  field value in new entry
+     * @param bucketIndex index of the bucket to which a value will be added
      * Check whether it is necessary to resize.
      * */
     void  addEntry(int key, long value, int bucketIndex) {
@@ -74,7 +77,7 @@ public class MyHashMap {
     }
 
     /**
-     * Rehashes the contents of this map into a new array with a larger capacity.
+     * Rehashes the contents of this map into a new array with larger capacity.
      * */
     void  resize(int newCapacity) {
         Entry[] oldTable = buckets;
