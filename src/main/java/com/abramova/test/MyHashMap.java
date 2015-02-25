@@ -116,6 +116,7 @@ public class MyHashMap {
 
     /**
      * Returns the value to which the specified key is mapped
+     * @param key key of element
      * @throws java.util.NoSuchElementException if the specified key not found.
      * */
     public long get(int key) {
