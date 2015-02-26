@@ -12,7 +12,7 @@ public class HashMapTest {
     /**
     * Tests putting and getting simple entries and returning old value, when put entry with same key.
     */
-    @Test
+     @Test
     public  void testInput(){
         final MyHashMap myHashMap = new MyHashMap();
         myHashMap.put(1,891);
@@ -36,7 +36,7 @@ public class HashMapTest {
 
         myHashMap.put(1,120);
         myHashMap.put(2,143);
-
+        System.out.println("h");
         assertEquals(120,myHashMap.get(1),0);
         assertEquals(143,myHashMap.get(2),0);
 

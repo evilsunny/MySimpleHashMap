@@ -6,6 +6,7 @@ package com.abramova.test;
 public class Runner {
     public static void main(String[] args) {
         MyHashMap myHashMap = new MyHashMap();
+        System.out.println(myHashMap);
         myHashMap.put(12, 1);
         myHashMap.put(19, 2);
         System.out.println(myHashMap);
