@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * */
 public class MyHashMap {
     /**
-     * The table entries;
+     * The array of entries;
      * */
     private Entry[] buckets;
     /**
@@ -20,8 +20,9 @@ public class MyHashMap {
     private  int DEFAULT_INIT_CAPACITY = 16;
     private  float DEFAULT_LOAD_FACTOR = 0.75f;
     static final int MAXIMUM_CAPACITY = 1 << 30;
+
     /**
-     * The next size value to resize
+     * TThe value, which shows the number of entries which should be added so the map will be resized.
      * */
     private int threshold;
 
@@ -183,7 +184,7 @@ public class MyHashMap {
         return h;
     }
 
-    class Entry{
+    static class Entry{
         private long value;
         private final int key;
         Entry next;
@@ -238,6 +239,4 @@ public class MyHashMap {
                 return e;
             }
         }
-
-
     }
