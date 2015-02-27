@@ -34,6 +34,9 @@ public class MyHashMap {
      * @param capacity the total number of slots in the buckets
      */
     public MyHashMap(int capacity) {
+        if (capacity<=0){
+            throw new NegativeArraySizeException();
+        }
         int newCapacity = capacity;
         if (!isPrime(capacity)) {
             newCapacity = getNextSize(capacity);

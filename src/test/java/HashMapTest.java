@@ -1,5 +1,6 @@
 import com.abramova.test.MyHashMap;
 
+import org.junit.Before;
 import org.junit.Test;
 import java.util.NoSuchElementException;
 import static org.junit.Assert.assertEquals;
@@ -9,12 +10,23 @@ import static org.junit.Assert.assertTrue;
 
 public class HashMapTest {
 
+
+    private MyHashMap myHashMap;
+    @Before
+    public void setup(){
+        myHashMap = new MyHashMap(3);
+    }
+
+
+    @Test(expected = NegativeArraySizeException.class)
+    public void testNegativeSize(){
+        MyHashMap mymap = new MyHashMap(-1);
+    }
     /**
     * Tests putting and getting simple entries and returning old value, when put entry with same key.
     */
      @Test
     public  void testInput(){
-        final MyHashMap myHashMap = new MyHashMap();
         myHashMap.put(1,891);
         myHashMap.put(49, 31);
 
@@ -27,7 +39,6 @@ public class HashMapTest {
     */
     @Test
     public void testDoublePut(){
-        final MyHashMap myHashMap = new MyHashMap();
         myHashMap.put(1,121);
         myHashMap.put(2,144);
 
@@ -46,7 +57,6 @@ public class HashMapTest {
     */
     @Test(expected = NoSuchElementException.class)
     public void testException(){
-        final MyHashMap myHashMap = new MyHashMap();
         myHashMap.put(2,2);
         myHashMap.get(1);
     }
@@ -56,7 +66,6 @@ public class HashMapTest {
      */
     @Test
     public void testSize(){
-        final MyHashMap myHashMap = new MyHashMap();
         myHashMap.put(11,121);
         myHashMap.put(12,144);
         assertEquals(2,myHashMap.size(),0);
@@ -70,7 +79,6 @@ public class HashMapTest {
      */
     @Test
     public void testNegative(){
-        final MyHashMap myHashMap = new MyHashMap();
         myHashMap.put(-1,12);
         assertEquals(12,myHashMap.get(-1),0);
         myHashMap.put(12,-1);
@@ -83,7 +91,6 @@ public class HashMapTest {
      */
     @Test
     public void testBigNumber(){
-        final MyHashMap myHashMap = new MyHashMap();
         long t0 = System.currentTimeMillis();
         int maxI = 100000;
         for (int i = 0 ; i < maxI; i++){
