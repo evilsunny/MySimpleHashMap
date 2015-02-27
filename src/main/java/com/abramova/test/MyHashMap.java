@@ -30,7 +30,6 @@ public class MyHashMap {
 
     /**
      * Constructs an empty MyHashMap with
-     *
      * @param capacity the total number of slots in the buckets
      */
     public MyHashMap(int capacity) {
@@ -56,7 +55,8 @@ public class MyHashMap {
     }
 
     /**
-     * Returns index for hash code
+     * Returns index for
+     * @param hash in
      */
     int indexOf(int hash, int length) {
         return Math.abs(hash) % length;
@@ -64,7 +64,7 @@ public class MyHashMap {
 
     /**
      * Calculates the step for
-     * @param key of value for input
+     * @param key for input
      * */
     int stepOf(int key) {
         return 5 - key % 5;
@@ -83,8 +83,8 @@ public class MyHashMap {
     }
 
     /**
-     * Checks is
-     * @param num a prime number;
+     * Checks if
+     * @param num is a prime number;
      * */
     private boolean isPrime(int num) {
         for (int j = 2; (j * j <= num); j++) {
@@ -125,7 +125,8 @@ public class MyHashMap {
 
 
     /**
-     * Rehashes the contents of this map into a new array with larger capacity.
+     * Rehashes the contents of this map into a new array with
+     * @param newCapacity .
      */
     void resize(int newCapacity) {
 
@@ -165,7 +166,7 @@ public class MyHashMap {
 
 
     /**
-     * Return the number of entries in this MyHashMap
+     * @return the number of entries in this MyHashMap
      */
     public int size() {
         return size;
