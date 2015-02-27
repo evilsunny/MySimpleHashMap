@@ -9,9 +9,14 @@ public class Runner {
         System.out.println(myHashMap);
         myHashMap.put(12, 1);
         myHashMap.put(19, 2);
+
         System.out.println(myHashMap);
         System.out.println("Size " + myHashMap.size());
         myHashMap.put(8, 3);
+        myHashMap.put(11, 2);
+        myHashMap.put(15, 2);
+        myHashMap.put(1, 2);
+        myHashMap.put(9, 2);
         System.out.println(myHashMap);
         System.out.println("Size "+myHashMap.size());
 

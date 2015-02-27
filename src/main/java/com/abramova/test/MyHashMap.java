@@ -11,35 +11,41 @@ import java.util.NoSuchElementException;
 public class MyHashMap {
     /**
      * The array of entries
-     * */
+     */
     private Entry[] buckets;
     /**
      * The number of entries in this MyHashMap
-     * */
+     */
     private int size;
     /**
      * Default number of slots in the buckets
-     * */
-    private  int DEFAULT_INIT_CAPACITY = 16;
+     */
+    private int DEFAULT_INIT_CAPACITY = 3;
 
     /**
      * The number of slots in the buckets
-     * */
+     */
     private int maxSize;
 
 
     /**
      * Constructs an empty MyHashMap with
-     * @param capacity  the total number of slots in the buckets
-     * */
-    public MyHashMap(int capacity){
+     *
+     * @param capacity the total number of slots in the buckets
+     */
+    public MyHashMap(int capacity) {
+        int newCapacity = capacity;
+        if (!isPrime(capacity)) {
+            newCapacity = getNextSize(capacity);
+        }
         maxSize = capacity;
-        buckets = new Entry[capacity];
+        buckets = new Entry[newCapacity];
         size = 0;
     }
+
     /**
      * Constructs an empty MyHashMap with default values of capacity .
-     * */
+     */
     public MyHashMap() {
         buckets = new Entry[DEFAULT_INIT_CAPACITY];
         maxSize = DEFAULT_INIT_CAPACITY;
@@ -48,50 +54,70 @@ public class MyHashMap {
 
     /**
      * Returns index for hash code
-     * */
-    int indexOf(int hash,int length) {
-        return Math.abs(hash)%length;
+     */
+    int indexOf(int hash, int length) {
+        return Math.abs(hash) % length;
+    }
+
+    int shiftOf(int key) {
+        return 5 - key % 5;
+    }
+
+    private int getNextSize(int min) {
+        for (int j = min + 1; true; j++) {
+            if (isPrime(j))
+                return j;
         }
+    }
+
+    private boolean isPrime(int num) {
+        for (int j = 2; (j * j <= num); j++) {
+            if (num % j == 0) {
+                return false;
+            }
+        }
+        return true;
+
+    }
 
     /**
      * Put pair (key,value) to this MyHashMap.If the map  contains a value for the key, the old value is replaced
-     * @param key used with computed hashes to access values
+     *
+     * @param key   used with computed hashes to access values
      * @param value - value for this key
-     * */
-    public long put(int key, long value){
-        int index = indexOf(key,maxSize);
+     */
+    public long put(int key, long value) {
+        int index = indexOf(key, maxSize);
+        int step = shiftOf(key);
         int count = 0;
-        if (size++ >= maxSize)
-            resize(2 * maxSize);
 
-        while(buckets[index] != null && buckets[index].getKey() != key){
-            index = (index + 1) % size ;
-            if(count == size)
-                throw new NoSuchElementException("Table full");
-            count++;
+        while (buckets[index] != null && buckets[index].getKey() != key) {
+            index = (index + step) % maxSize;
+
         }
-        if (buckets[index]!=null){
+
+        if (buckets[index] != null) {
             long oldValue = buckets[index].getValue();
-            buckets[index]=new Entry(key,value);
+            buckets[index] = new Entry(key, value);
             return oldValue;
         }
-        buckets[index]=new Entry(key,value);
+        buckets[index] = new Entry(key, value);
+        if (++size >= maxSize)
+            resize(getNextSize(maxSize));
         return value;
     }
 
 
-
-
     /**
      * Rehashes the contents of this map into a new array with larger capacity.
-     * */
-    void  resize(int newCapacity){
+     */
+    void resize(int newCapacity) {
 
         MyHashMap tmp = new MyHashMap(newCapacity);
 
         for (int i = 0; i < buckets.length; i++) {
             if (buckets[i] != null) {
-               tmp.put(buckets[i].getKey(),buckets[i].getValue());
+                tmp.put(buckets[i].getKey(), buckets[i].getValue());
             }
         }
         maxSize = newCapacity;
@@ -101,28 +127,31 @@ public class MyHashMap {
 
     /**
      * Returns the value to which the specified key is mapped
+     *
      * @param key key of element
      * @return value for this key
      * @throws java.util.NoSuchElementException if the specified key not found.
-     * */
+     */
     public long get(int key) {
-        int index = indexOf(key,buckets.length);
+        int index = indexOf(key, maxSize);
+        int step = shiftOf(key);
+
         int indexForInput = index;
         do {
             if (buckets[index] == null)
-               throw new NoSuchElementException();
+                throw new NoSuchElementException();
             else if (buckets[index].getKey() == key)
                 return buckets[index].getValue();
-            index = (index + 1) % buckets.length;
+            index = (index + step) % maxSize;
         } while (indexForInput != index);
         throw new NoSuchElementException();
-        }
+    }
 
 
     /**
      * Return the number of entries in this MyHashMap
-     * */
-    public int size(){
+     */
+    public int size() {
         return size;
     }
 
@@ -136,10 +165,9 @@ public class MyHashMap {
 
         if (size() != myHashMap.size()) return false;
 
-        EntryIterator entryIterator = new EntryIterator();
-        while (entryIterator.hasNext()){
-            Entry e= entryIterator.next();
-            if(e.getValue() != myHashMap.get(e.getKey())){
+        for (int i = 0; i < maxSize; i++) {
+            if (buckets[i] != null) {
+            if(buckets[i].getValue()!=myHashMap.get(buckets[i].getKey()))
                 return false;
             }
         }
@@ -148,10 +176,11 @@ public class MyHashMap {
 
     @Override
     public int hashCode() {
-       int h = 0;
-        EntryIterator entryIterator = new EntryIterator();
-        while (entryIterator.hasNext()){
-            h+=entryIterator.next().hashCode();
+        int h = 0;
+        for (int i = 0; i < maxSize; i++) {
+            if (buckets[i] != null) {
+                h += buckets[i].hashCode();
+            }
         }
         return h;
     }
@@ -159,79 +188,43 @@ public class MyHashMap {
     @Override
     public String toString() {
         String h = "";
-        Entry e;
-        EntryIterator entryIterator = new EntryIterator();
-        while (entryIterator.hasNext()) {
-            e = entryIterator.next();
-            h += "( " + e.getKey() + ", " + e.getValue() + " );";
+
+        for (int i = 0; i < maxSize; i++) {
+            if (buckets[i] != null) {
+                h += "(" + buckets[i].getKey() + ", " + buckets[i].getValue() + ");";
+            }
         }
         return h;
-
     }
 
-    static class Entry{
-     private long value;
+    static class Entry {
+        private long value;
         private final int key;
         Entry next;
 
-    public Entry(int key, long value) {
-        this.key = key;
-        this.value = value;
-    }
-
-    @Override
-    public int hashCode() {
-        return 37*key+8;
-    }
-
-    public long getValue() {
-        return value;
-    }
-
-    public void setValue(long value) {
-        this.value = value;
-    }
-
-    public int getKey() {
-        return key;
-    }
-}
-
-
-
-final class EntryIterator{
-        Entry next;
-        Entry current;
-        int index;
-        int count;
-
-
-        EntryIterator(){
-            count = size;
-            Entry[] t = buckets;
-            current = next = null;
-            index = 0;
-            if (t != null && size > 0) {
-                do {} while (index < t.length && (next = t[index++]) == null);
-            }
+        public Entry(int key, long value) {
+            this.key = key;
+            this.value = value;
         }
 
-
-            public  final boolean hasNext(){
-                return next!=null;
-            }
-
-            final Entry next() {
-                Entry[] t;
-                Entry e = next;
-                if (e == null)
-                    throw new NoSuchElementException();
-                current = e;
-                next = e.next;
-                if (next == null && (t = buckets) != null) {
-                    do {} while (index < t.length && (next = t[index++]) == null);
-                }
-                return e;
-            }
+        @Override
+        public int hashCode() {
+            return 37 * key + 8;
         }
+
+        public long getValue() {
+            return value;
+        }
+
+        public void setValue(long value) {
+            this.value = value;
+        }
+
+        public int getKey() {
+            return key;
+        }
+    }
+
+
+
     }
