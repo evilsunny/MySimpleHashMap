@@ -59,10 +59,19 @@ public class MyHashMap {
         return Math.abs(hash) % length;
     }
 
-    int shiftOf(int key) {
+    /**
+     * Calculates the step for
+     * @param key of value for input
+     * */
+    int stepOf(int key) {
         return 5 - key % 5;
     }
 
+    /**
+     * Calculates new size for resizing, this size should be a first prime number after
+     * @param min
+     * for to avoid an infinite loop.
+     * */
     private int getNextSize(int min) {
         for (int j = min + 1; true; j++) {
             if (isPrime(j))
@@ -70,6 +79,10 @@ public class MyHashMap {
         }
     }
 
+    /**
+     * Checks is
+     * @param num a prime number;
+     * */
     private boolean isPrime(int num) {
         for (int j = 2; (j * j <= num); j++) {
             if (num % j == 0) {
@@ -88,7 +101,7 @@ public class MyHashMap {
      */
     public long put(int key, long value) {
         int index = indexOf(key, maxSize);
-        int step = shiftOf(key);
+        int step = stepOf(key);
         int count = 0;
 
         while (buckets[index] != null && buckets[index].getKey() != key) {
@@ -134,7 +147,7 @@ public class MyHashMap {
      */
     public long get(int key) {
         int index = indexOf(key, maxSize);
-        int step = shiftOf(key);
+        int step = stepOf(key);
 
         int indexForInput = index;
         do {
