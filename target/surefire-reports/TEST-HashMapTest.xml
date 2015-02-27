@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="7.402" errors="0" skipped="0" tests="8" name="HashMapTest">
+<testsuite failures="0" time="6.522" errors="0" skipped="0" tests="9" name="HashMapTest">
   <properties>
     <property name="idea.version" value="14.0.2"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -11,7 +11,7 @@
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
     <property name="file.encoding.pkg" value="sun.io"/>
-    <property name="idea.launcher.port" value="7533"/>
+    <property name="idea.launcher.port" value="7536"/>
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
@@ -62,12 +62,13 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.002" classname="HashMapTest" name="testInput"/>
-  <testcase time="0" classname="HashMapTest" name="testDoublePut"/>
+  <testcase time="0.001" classname="HashMapTest" name="testNegativeSize"/>
+  <testcase time="0" classname="HashMapTest" name="testInput"/>
+  <testcase time="0.001" classname="HashMapTest" name="testDoublePut"/>
   <testcase time="0" classname="HashMapTest" name="testException"/>
   <testcase time="0" classname="HashMapTest" name="testSize"/>
   <testcase time="0" classname="HashMapTest" name="testNegative"/>
-  <testcase time="7.346" classname="HashMapTest" name="testBigNumber"/>
+  <testcase time="6.478" classname="HashMapTest" name="testBigNumber"/>
   <testcase time="0" classname="HashMapTest" name="testEquals"/>
-  <testcase time="0.001" classname="HashMapTest" name="testCollision"/>
+  <testcase time="0" classname="HashMapTest" name="testCollision"/>
 </testsuite>

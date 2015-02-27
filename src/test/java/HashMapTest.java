@@ -34,8 +34,8 @@ public class HashMapTest {
         myHashMap.put(49, 31);
 
         assertEquals(31,myHashMap.get(49),0);
-//        assertEquals(891,myHashMap.get(1),0);
-//        assertEquals(31,myHashMap.put(49,12),0);
+        assertEquals(891,myHashMap.get(1),0);
+        assertEquals(31,myHashMap.put(49,12),0);
     }
     /**
     * Tests double putting entries with same keys
