@@ -18,6 +18,9 @@ public class HashMapTest {
     }
 
 
+    /**
+     * Tests creating new HashMap with negative size.
+     * */
     @Test(expected = NegativeArraySizeException.class)
     public void testNegativeSize(){
         MyHashMap mymap = new MyHashMap(-1);
