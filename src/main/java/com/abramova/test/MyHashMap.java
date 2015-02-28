@@ -204,14 +204,14 @@ public class MyHashMap {
 
     @Override
     public String toString() {
-        String h = "";
+        StringBuilder h = new StringBuilder("");
 
         for (int i = 0; i < maxSize; i++) {
             if (buckets[i] != null) {
-                h += "(" + buckets[i].getKey() + ", " + buckets[i].getValue() + ");";
+                h.append("(" + buckets[i].getKey() + ", " + buckets[i].getValue() + ");");
             }
         }
-        return h;
+        return h.toString();
     }
 
     static class Entry {
